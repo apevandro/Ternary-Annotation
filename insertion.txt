@@ -1,0 +1,68 @@
+# Best practice
+
+INSERT INTO STUDENTS (StudentId, Name, Address, City)
+VALUES (111, 'Edvaldo Carlos Silva', 'Av. Sao Carlos, 186', 'Sao Carlos-SP');
+
+INSERT INTO DISCIPLINES (DiscId, Name, Credits)
+VALUES (1, 'Banco de Dados', 30);
+
+INSERT INTO PROFESSORS (ProfId, Name, Admission, ResearchArea)
+VALUES (45675, 'Abgair Simon Ferreira', '1992-04-10', 'Banco de Dados');
+
+ORACLE XE 11G Version - INSERT INTO PROFESSORS (ProfId, Name, Admission, ResearchArea)
+                        VALUES (45675, 'Abgair Simon Ferreira', to_date('04/10/1992','DD/MM/YYYY'), 'Banco de Dados');
+
+
+INSERT INTO CLASSES (Id, StudentId, DiscId, ProfId, Semester, Grade)
+VALUES (1, 111, 1, 45675, '01/1998', 8.5);
+
+------------------------------------------------------------------------------
+# Intermediate entity strategy
+
+INSERT INTO STUDENTS (StudentId, Name, Address, City)
+VALUES (111, 'Edvaldo Carlos Silva', 'Av. Sao Carlos, 186', 'Sao Carlos-SP');
+
+INSERT INTO DISCIPLINES (DiscId, Name, Credits)
+VALUES (1, 'Banco de Dados', 30);
+
+INSERT INTO PROFESSORS (ProfId, Name, Admission, ResearchArea)
+VALUES (45675, 'Abgair Simon Ferreira', '1992-04-10', 'Banco de Dados');
+
+ORACLE XE 11G Version - INSERT INTO PROFESSORS (ProfId, Name, Admission, ResearchArea)
+                        VALUES (45675, 'Abgair Simon Ferreira', to_date('04/10/1992','DD/MM/YYYY'), 'Banco de Dados');
+						
+INSERT INTO CLASSES (StudentId, DiscId, ProfId, Semester, Grade)
+VALUES (111, 1, 45675, '01/1998', 8.5);
+
+------------------------------------------------------------------------------
+#Ternary strategy
+
+INSERT INTO STUDENTS (StudentId, Name, Address, City)
+VALUES (111, 'Edvaldo Carlos Silva', 'Av. Sao Carlos, 186', 'Sao Carlos-SP');
+
+INSERT INTO STUDENTS (StudentId, Name, Address, City)
+VALUES (112, 'Joao Benedito Scapin', 'R. Jose Bonifacio, 70', 'Sao Carlos-SP');
+
+INSERT INTO STUDENTS (StudentId, Name, Address, City)
+VALUES (113, 'Carol Antonia Silveira', 'R. Luiz Camoes, 120', 'Ibate-SP');
+
+INSERT INTO DISCIPLINES (DiscId, Name, Credits)
+VALUES (1, 'Banco de Dados', 30);
+
+INSERT INTO DISCIPLINES (DiscId, Name, Credits)
+VALUES (2, 'Estrutura de Dados', 30);
+
+INSERT INTO PROFESSORS (ProfId, Name, Admission, ResearchArea)
+VALUES (45675, 'Abgair Simon Ferreira', '1992-04-10', 'Banco de Dados');
+
+ORACLE XE 11G Version - INSERT INTO PROFESSORS (ProfId, Name, Admission, ResearchArea)
+                        VALUES (45675, 'Abgair Simon Ferreira', to_date('04/10/1992','DD/MM/YYYY'), 'Banco de Dados');
+
+INSERT INTO CLASSES (ProfId, StudentId, DiscId)
+VALUES (45675, 111, 1);
+
+INSERT INTO CLASSES (ProfId, StudentId, DiscId)
+VALUES (45675, 112, 2);
+
+INSERT INTO CLASSES (ProfId, StudentId, DiscId)
+VALUES (45675, 113, 2);

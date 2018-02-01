@@ -1,0 +1,99 @@
+# Best practice
+
+create table STUDENTS (
+       StudentId integer not null,
+       Name varchar(255),
+       Address varchar(255),
+       City varchar(255),
+       primary key (StudentId));
+
+create table DISCIPLINES (
+       DiscId integer not null,
+       Name varchar(255),
+       Credits integer,
+       primary key (DiscId));
+
+create table PROFESSORS (
+       ProfId integer not null,
+       Name varchar(255),
+       Admission date,
+       ResearchArea varchar(255),
+       primary key (ProfId));
+
+create table CLASSES (
+       Id integer not null,
+       StudentId integer,
+       DiscId integer,
+       ProfId integer,
+       Semester varchar(255),
+       Grade double precision not null,
+       primary key (Id),
+	   foreign key (StudentId) references STUDENTS (StudentId),
+	   foreign key (DiscId) references DISCIPLINES (DiscId),
+	   foreign key (ProfId) references PROFESSORS (ProfId));
+
+--------------------------------------------------------------
+# Intermediate entity strategy
+
+create table STUDENTS (
+       StudentId integer not null,
+       Name varchar(255),
+       Address varchar(255),
+       City varchar(255),
+       primary key (StudentId));
+
+create table DISCIPLINES (
+       DiscId integer not null,
+       Name varchar(255),
+       Credits integer,
+       primary key (DiscId));
+
+create table PROFESSORS (
+       ProfId integer not null,
+       Name varchar(255),
+       Admission date,
+       ResearchArea varchar(255),
+       primary key (ProfId));
+
+create table CLASSES (
+       StudentId integer not null,
+       DiscId integer not null,
+       ProfId integer not null,
+       Semester varchar(255) not null,
+       Grade double precision not null,
+       primary key (StudentId, DiscId, ProfId, Semester),
+	   foreign key (StudentId) references STUDENTS (StudentId),
+	   foreign key (DiscId) references DISCIPLINES (DiscId),
+	   foreign key (ProfId) references PROFESSORS (ProfId));
+
+-------------------------------------------------------------------
+# Ternary strategy
+
+create table STUDENTS (
+       StudentId integer not null,
+       Name varchar(255),
+       Address varchar(255),
+       City varchar(255),
+       primary key (StudentId));
+
+create table DISCIPLINES (
+       DiscId integer not null,
+       Name varchar(255),
+       Credits integer,
+       primary key (DiscId));
+
+create table PROFESSORS (
+       ProfId integer not null,
+       Name varchar(255),
+       Admission date,
+       ResearchArea varchar(255),
+       primary key (ProfId));
+
+create table CLASSES (
+       ProfId integer not null,
+       StudentId integer not null,
+       DiscId integer not null,
+       primary key (ProfId, StudentId),
+       foreign key (DiscId) references DISCIPLINES (DiscId),
+       foreign key (ProfId) references PROFESSORS (ProfId),
+       foreign key (StudentId) references STUDENTS (StudentId));
